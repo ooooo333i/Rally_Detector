@@ -2,10 +2,7 @@ import os
 import shutil
 
 def renumber_sequences(base_dir):
-    """
-    base_dir 안의 seq_* 폴더들을 모두 seq_00001, seq_00002 순으로 다시 번호 매김
-    각 seq 안의 이미지도 00001.jpg부터 순서 재정렬
-    """
+    
 
     # seq 폴더만 추출
     seqs = [d for d in os.listdir(base_dir) if d.startswith("seq_")]
