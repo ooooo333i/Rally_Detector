@@ -79,14 +79,21 @@ def extract_sequences(
     cap.release()
     print("[INFO] Done extracting sequences.")
 
-
+##------train data------
 ##url = "https://www.youtube.com/watch?v=RseCk0mwFE8&t=11s"
 ##url = "https://www.youtube.com/watch?v=5FjqTsc9gX0"
 ##url = "https://www.youtube.com/watch?v=171gQSf_CPI"
 ##url = "https://www.youtube.com/watch?v=HPEx4XQXE9Q"
-url = "https://www.youtube.com/watch?v=c5Rl3-oyZQc"
+##url = "https://www.youtube.com/watch?v=c5Rl3-oyZQc"
+
+##------validation data------
+##url = "https://www.youtube.com/watch?v=M5uCoyQe60s"
+##url = "https://www.youtube.com/watch?v=KgH2FQwZXG0"
+
+##------test data------
+url = "https://www.youtube.com/watch?v=AQRxDt9jc1U"
 
 video_path = download_youtube(url, "downloaded.mp4")
 
 # interval 프레임마다 seq 생성
-extract_sequences(video_path, out_dir="Data/sequences", seq_frames=30, interval_sec=30)
+extract_sequences(video_path, out_dir="Data/test/sequences", seq_frames=30, interval_sec=30)

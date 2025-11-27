@@ -52,4 +52,4 @@ def renumber_sequences(base_dir):
     print("[DONE] All sequences and frames renumbered successfully!")
 
 
-renumber_sequences("Data/sequences") 
+renumber_sequences("Data/test/sequences") 

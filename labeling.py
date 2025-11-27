@@ -2,8 +2,8 @@ import os
 import cv2
 import csv
 
-SEQ_ROOT = "Data/sequences"
-OUT_CSV = "Data/labels.csv"
+SEQ_ROOT = "Data/test/sequences"
+OUT_CSV = "Data/test/labels.csv"
 
 os.makedirs(SEQ_ROOT, exist_ok=True)
 
