@@ -3,7 +3,6 @@ import shutil
 
 def renumber_sequences(base_dir):
     
-
     # seq 폴더만 추출
     seqs = [d for d in os.listdir(base_dir) if d.startswith("seq_")]
     seqs.sort()  # 이름순 정렬
