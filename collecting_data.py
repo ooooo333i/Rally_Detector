@@ -39,7 +39,7 @@ def extract_sequences(
 ):
     os.makedirs(out_dir, exist_ok=True)
 
-    # ★ 기존 seq 폴더 확인 후 다음 번호부터 시작
+    # 기존 seq 폴더 확인 후 다음 번호부터 시작
     seq_idx = get_next_sequence_index(out_dir)
     print(f"[INFO] Starting new sequences from seq_{seq_idx:05d}")
 
