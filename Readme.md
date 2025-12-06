@@ -146,3 +146,14 @@ F1 Score:  0.8095
 Precision: 0.8293
 Recall:    0.7907
 ```
+
+### Optimized Hyper Parameter
+
+after giving a variety to a hyper parameter, this parameter is the best.
+
+- batchsize : 4
+- hidden size : 128
+- number of layers : 2
+- dropout probablity : 0.3
+- data augmentation : false
+
