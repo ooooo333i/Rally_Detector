@@ -128,6 +128,8 @@ After trying various hyperparameters, this one performed the best.
 - dropout probablity : 0.3
 - data augmentation : false
 
+**Only this case can trigger the early stopping**
+
 ### Train Result 
 
 The average time of per iteration is around 2.5 sec.
