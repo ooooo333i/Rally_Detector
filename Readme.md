@@ -99,7 +99,7 @@ This model consists of two major parts:
 
 ### RES_LSTM Model Summary - (tsummary)
 
-input (1, 30, 3, 244, 244)
+Input Size (1, 30, 3, 244, 244)
 
 | Layer Type         | Name / (Depth-Idx)          | Output Shape       | Param #    |
 |-------------------|-----------------------------|--------------------|------------|
@@ -256,6 +256,7 @@ Total samples: 116
 ## 🚀 Future Improvements
 
 **Several enhancements can be made in future work:**
+
 - Collect a larger and more diverse dataset, including not only high-quality match broadcasts but also personal handheld or amateur videos, so the model can generalize to real-world usage.
 - Reduce model computation to enable real-time tracking, such as by using a lighter or partially-trainable CNN backbone (e.g., MobileNet, EfficientNet) or replacing LSTM with a faster temporal model.
 - Increase data variation (different cameras, resolutions, lighting, and environments) to make the system robust enough for everyday user-generated footage.
