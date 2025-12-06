@@ -37,25 +37,41 @@ The dataset is split as follows:
 ### structure
 
 ```
-/Data  # make a new 'Data' directory
-    /test
-        /sequences
-            /seq_#####
-                /#####.jpg
-                ···
-        test.csv
-    /train
-        /sequences
-            /seq_#####
-                /#####.jpg
-                ···
-        train.csv
-    /validatioon
-        /sequences
-            /seq_#####
-                /#####.jpg
-                ···
-        validation.csv
+Data
+│
+├── train
+│     │
+│     ├── sequences
+│     │       ├── seq_00001
+│     │       │       ├── 00001.jpg
+│     │       │       ├── 00002.jpg
+│     │       │       └── ...
+│     │       ├── seq_00002
+│     │       │       └── ...
+│     │       └── ...
+│     │
+│     └── train.csv
+│
+├── validation
+│     │
+│     ├── sequences
+│     │       ├── seq_00001
+│     │       │       ├── 00001.jpg
+│     │       │       └── ...
+│     │       └── ...
+│     │
+│     └── validation.csv
+│
+└── test
+      │
+      ├── sequences
+      │       ├── seq_00001
+      │       │       ├── 00001.jpg
+      │       │       └── ...
+      │       └── ...
+      │
+      └── test.csv
+
 ```
 
 ## 🧠 Model: RESNET + LSTM Hybrid
