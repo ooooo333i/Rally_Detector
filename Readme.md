@@ -1,5 +1,37 @@
 # Artificial-Intelligence-Fall-2025-AnSeungGi
 
+## DataSet
+
+[googledrive](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link).
+
+--- it might take much time. --- 
+---
+
+### structure
+
+```
+/Data
+    /test
+        /sequences
+            /seq_#####
+                /#####.jpg
+                ···
+        test.csv
+    /train
+        /sequences
+            /seq_#####
+                /#####.jpg
+                ···
+        train.csv
+    /validatioon
+        /sequences
+            /seq_#####
+                /#####.jpg
+                ···
+        validation.csv
+```
+
+
 ## RES_LSTM Model Summary
 
 | Layer Type         | Name / (Depth-Idx)          | Output Shape       | Param #    |
