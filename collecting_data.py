@@ -17,15 +17,13 @@ def download_youtube(url, output_path="video.mp4", po_token=None):
 
 
 def get_next_sequence_index(out_dir):
-    """현재 seq 폴더들 중 가장 큰 번호 +1을 반환"""
     if not os.path.exists(out_dir):
         return 1
 
     seqs = [d for d in os.listdir(out_dir) if re.match(r"seq_\d{5}$", d)]
     if not seqs:
         return 1
-
-    # seq_00032 → 32 로 변환
+    
     numbers = [int(d.split("_")[1]) for d in seqs]
     return max(numbers) + 1
 
@@ -39,7 +37,6 @@ def extract_sequences(
 ):
     os.makedirs(out_dir, exist_ok=True)
 
-    # 기존 seq 폴더 확인 후 다음 번호부터 시작
     seq_idx = get_next_sequence_index(out_dir)
     print(f"[INFO] Starting new sequences from seq_{seq_idx:05d}")
 
@@ -91,9 +88,10 @@ def extract_sequences(
 ##url = "https://www.youtube.com/watch?v=KgH2FQwZXG0"
 
 ##------test data------
-url = "https://www.youtube.com/watch?v=AQRxDt9jc1U"
+##url = "https://www.youtube.com/watch?v=AQRxDt9jc1U"
 
+url = "url"
 video_path = download_youtube(url, "downloaded.mp4")
 
-# interval 프레임마다 seq 생성
+
 extract_sequences(video_path, out_dir="Data/test/sequences", seq_frames=30, interval_sec=30)
