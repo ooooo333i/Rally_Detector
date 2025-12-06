@@ -122,7 +122,7 @@ This model consists of two major parts:
 
 output
 
-'''
+```
 Training: 100%|██████████| 155/155 [06:39<00:00,  2.58s/it]
 Evaluating: 100%|██████████| 64/64 [02:36<00:00,  2.45s/it]
 Epoch 01 | Train Loss: 0.625, Acc: 68.28% | Val Loss: 0.597, Acc: 58.98%
@@ -192,4 +192,4 @@ Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.40s/it]
 Epoch 17 | Train Loss: 0.403, Acc: 80.42% | Val Loss: 0.445, Acc: 81.25%
 not improved
 Early stopping triggered!
-'''
+```
