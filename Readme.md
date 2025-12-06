@@ -12,8 +12,16 @@
 
 Download here.[Dataset-googledrive](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
 
-
 (it might take much time.)
+---
+
+The dataset consists of badminton rally sequences extracted from YouTube videos.
+Each sequence contains **30 consecutive frames**, resized to **224×224**.
+
+The dataset is split as follows:
+- **Train**: 618 sequences
+- **Validation**: 256 sequences
+- **Test**: 116 sequences
 
 ---
 
@@ -128,7 +136,9 @@ After trying various hyperparameters, this one performed the best.
 - dropout probablity : 0.3
 - data augmentation : false
 
-**Only this case can trigger the early stopping**
+**Only this case can trigger the early stopping.**
+
+---
 
 ### Train Result 
 
