@@ -2,7 +2,7 @@
 
 
 
-## Setup - using dataset
+## Setup
 
 1. Clone this repository.
 2. generate a new folder 'Data' and download datasets. [Dataset](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
@@ -18,12 +18,13 @@ Download here.[Dataset-googledrive](https://drive.google.com/drive/folders/19a5X
 
 ---
 
-## 🔧 Data Preprocessing - role of 'collecting_data.py'
+### 🔧 Data Preprocessing - role of 'collecting_data.py'
 
 1. Download YouTube videos using **pytubefix**  
 2. Extract frames every *interval seconds*  
 3. Resize to **224×224**  
 4. Group into sequences of **30 frames**
+5. Manually label using 'labeling.py'
 
 ### structure
 
@@ -72,7 +73,7 @@ This model consists of two major parts:
 
 ---
 
-### RES_LSTM Model Summary
+### RES_LSTM Model Summary - (tsummary)
 
 | Layer Type         | Name / (Depth-Idx)          | Output Shape       | Param #    |
 |-------------------|-----------------------------|--------------------|------------|
