@@ -99,18 +99,25 @@ This model consists of two major parts:
 | Dropout           | 2-12                        | [1,64]             | 0          |
 | Linear            | 2-13                        | [1,1]              | 65         |
 
-### **Total Parameters**
-| Type                | Count        |
-|---------------------|--------------|
-| Total params        | **11,645,633** |
-| Trainable params    | **469,121**   |
-| Frozen params       | **11,176,512** |
-| Mult-Adds           | **54.42 GB** |
+---
 
-### **Memory Usage**
-| Category                   | Size (MB) |
-|---------------------------|-----------|
-| Input size                | 18.06     |
-| Forward/backward pass     | 1192.21   |
-| Params size               | 46.58     |
-| **Estimated Total Size**  | **1256.86 MB** |
+## 🏋️ Training Process
+
+### Training Settings
+
+- **Loss**: BCEWithLogitsLoss
+- **Optimizer**: Adam (lr = 1e-4)
+- **Batch size**: 4
+- **Epochs**: 20
+- **Metrics**: Accuracy, F1-score, Precision, Recall
+- **Eearly Stopping**
+
+### Data Augmentation - not used
+
+(After applying data augmentation, it shows that the performance get lower)
+
+- Random horizontal flip
+- Random rotation
+- Color jitter
+
+These are crucial due to the relatively small dataset.
