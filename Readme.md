@@ -10,7 +10,7 @@
 
 ## DataSet
 
-Download here.[Dataset-googledrive](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+Download here.[Dataset-(GoogleDrive)](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
 
 (it might take much time.)
 
@@ -99,6 +99,8 @@ This model consists of two major parts:
 
 ### RES_LSTM Model Summary - (tsummary)
 
+input (1, 30, 3, 244, 244)
+
 | Layer Type         | Name / (Depth-Idx)          | Output Shape       | Param #    |
 |-------------------|-----------------------------|--------------------|------------|
 | **Model**         | RES_LSTM                    | [1, 1]             | --         |
@@ -124,6 +126,7 @@ This model consists of two major parts:
 | Linear            | 2-13                        | [1,1]              | 65         |
 
 ---
+
 
 ## 🏋️ Training Process
 
@@ -188,3 +191,64 @@ Recall:    0.7907
 ```
 
 **The reason the validation loss is high while the test loss remains low is that the validation set does not have a similar class distribution to the test set.**
+
+## Limitaions
+
+### Limited Dataset Size / Imbalanced Data
+
+- The total number of labeled sequences (618 training samples) is relatively small for a deep-learning model combining CNN and LSTM.
+This can lead to unstable convergence, higher variance, and sensitivity to hyperparameter choices.
+
+- The validation set has a different class distribution compared to the test set.
+This difference causes higher validation loss while the test loss remains low, making validation metrics less reliable for early stopping or hyperparameter tuning.
+
+
+- Train 
+```
+===== TRAIN label distribution =====
+label
+0    425
+1    193
+Name: count, dtype: int64
+
+===== Percentage (%) =====
+label
+0    68.77
+1    31.23
+Name: proportion, dtype: float64
+
+Total samples: 618
+```
+- Validation
+```
+===== VALIDATION label distribution =====
+label
+0    151
+1    105
+Name: count, dtype: int64
+
+===== Percentage (%) =====
+label
+0    58.98
+1    41.02
+Name: proportion, dtype: float64
+
+Total samples: 256
+```
+
+- Test
+```
+===== TEST label distribution =====
+label
+0    73
+1    43
+Name: count, dtype: int64
+
+===== Percentage (%) =====
+label
+0    62.93
+1    37.07
+Name: proportion, dtype: float64
+
+Total samples: 116
+```
