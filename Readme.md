@@ -109,7 +109,6 @@ This model consists of two major parts:
 - **Optimizer**: Adam (lr = 1e-4)
 - **Batch size**: 4
 - **Epochs**: 20
-- **Metrics**: Accuracy, F1-score, Precision, Recall
 - **Eearly Stopping**
 
 ### Data Augmentation - not used
