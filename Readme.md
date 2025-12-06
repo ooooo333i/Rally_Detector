@@ -70,10 +70,9 @@ This model consists of two major parts:
 - Mean pooling across the 30-frame sequence  
 - Fully connected head for binary classification
 
+---
 
-
-
-## RES_LSTM Model Summary
+### RES_LSTM Model Summary
 
 | Layer Type         | Name / (Depth-Idx)          | Output Shape       | Param #    |
 |-------------------|-----------------------------|--------------------|------------|
