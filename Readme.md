@@ -1,7 +1,6 @@
 # Artificial-Intelligence-Fall-2025-AnSeungGi
 
 
-
 ## Setup
 
 1. Clone this repository.
@@ -147,13 +146,16 @@ Precision: 0.8293
 Recall:    0.7907
 ```
 
+**The reason the validation loss is high while the test loss remains low is that the validation set does not have a similar class distribution to the test set.**
+
 ### Optimized Hyper Parameter
 
-after giving a variety to a hyper parameter, this parameter is the best.
+After trying various hyperparameters, this one performed the best.
 
 - batchsize : 4
 - hidden size : 128
 - number of layers : 2
 - dropout probablity : 0.3
 - data augmentation : false
+
 
