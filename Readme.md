@@ -131,11 +131,11 @@ This model consists of two major parts:
 
 After trying various hyperparameters, this one performed the best.
 
-- batchsize : 4
-- hidden size : 128
-- number of layers : 2
-- dropout probablity : 0.3
-- data augmentation : false
+- Batchsize : 4
+- Learning rate : 1e-4
+- LSTM Hidden size : 128
+- LSTM Number of layers : 2
+- Dropout probability : 0.3
 
 **Only this case can trigger the early stopping.**
 
