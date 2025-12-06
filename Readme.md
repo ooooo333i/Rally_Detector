@@ -11,7 +11,7 @@
 
 ## DataSet
 
-[Dataset-googledrive](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+Download here.[Dataset-googledrive](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
 
 
 (it might take much time.)
@@ -25,7 +25,26 @@
 3. Resize to **224×224**  
 4. Group into sequences of **30 frames**
 
+## 🧠 Model: RESNET + LSTM Hybrid
 
+This model consists of two major parts:
+
+---
+
+### **1. CNN Feature Extractor (ResNet18)**
+
+- Pretrained on ImageNet  
+- Outputs a **512-dimensional feature** for each frame  
+- Frozen backbone to prevent overfitting and reduce compute
+
+---
+
+### **2. LSTM Temporal Model**
+
+- 2-layer LSTM  
+- Hidden size = 128  
+- Mean pooling across the 30-frame sequence  
+- Fully connected head for binary classification
 
 ### structure
 
