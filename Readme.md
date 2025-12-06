@@ -1,18 +1,36 @@
 # Artificial-Intelligence-Fall-2025-AnSeungGi
 
+
+
+## Setup - using dataset
+
+1. Clone this repository.
+2. generate a new folder 'Data' and download datasets. [Dataset](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+3. Run 'main.ipynb'.
+
+
 ## DataSet
 
-[googledrive](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+[Dataset-googledrive](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
 
 
 (it might take much time.)
 
 ---
 
+## 🔧 Data Preprocessing - role of 'collecting_data.py'
+
+1. Download YouTube videos using **pytubefix**  
+2. Extract frames every *interval seconds*  
+3. Resize to **224×224**  
+4. Group into sequences of **30 frames**
+
+
+
 ### structure
 
 ```
-/Data
+/Data  # make a new 'Data' directory
     /test
         /sequences
             /seq_#####
