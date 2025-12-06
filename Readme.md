@@ -4,7 +4,7 @@
 ## Setup
 
 1. Clone this repository.
-2. generate a new folder 'Data' and download datasets. [Dataset](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+2. Create a new folder 'Data' and download datasets. [Dataset](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
 3. Run 'main.ipynb'.
 
 
@@ -118,6 +118,16 @@ This model consists of two major parts:
 - Random rotation
 - Color jitter
 
+### Optimized Hyper Parameter
+
+After trying various hyperparameters, this one performed the best.
+
+- batchsize : 4
+- hidden size : 128
+- number of layers : 2
+- dropout probablity : 0.3
+- data augmentation : false
+
 ### Train Result 
 
 The average time of per iteration is around 2.5 sec.
@@ -135,6 +145,8 @@ Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.40s/it]
 Epoch 17 | Train Loss: 0.403, Acc: 80.42% | Val Loss: 0.445, Acc: 81.25%
 ```
 
+![image](/output.png)
+
 ### Test Result
 
 ```
@@ -147,15 +159,3 @@ Recall:    0.7907
 ```
 
 **The reason the validation loss is high while the test loss remains low is that the validation set does not have a similar class distribution to the test set.**
-
-### Optimized Hyper Parameter
-
-After trying various hyperparameters, this one performed the best.
-
-- batchsize : 4
-- hidden size : 128
-- number of layers : 2
-- dropout probablity : 0.3
-- data augmentation : false
-
-
