@@ -121,6 +121,7 @@ This model consists of two major parts:
 - Color jitter
 
 output
+
 '''
 Training: 100%|██████████| 155/155 [06:39<00:00,  2.58s/it]
 Evaluating: 100%|██████████| 64/64 [02:36<00:00,  2.45s/it]
