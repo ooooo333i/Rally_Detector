@@ -120,76 +120,29 @@ This model consists of two major parts:
 - Random rotation
 - Color jitter
 
-output
+### Train Result 
+
+The average time of per iteration is around 2.5 sec.
+
 
 ```
 Training: 100%|██████████| 155/155 [06:39<00:00,  2.58s/it]
 Evaluating: 100%|██████████| 64/64 [02:36<00:00,  2.45s/it]
 Epoch 01 | Train Loss: 0.625, Acc: 68.28% | Val Loss: 0.597, Acc: 58.98%
-improved
-Training: 100%|██████████| 155/155 [06:35<00:00,  2.55s/it]
-Evaluating: 100%|██████████| 64/64 [02:34<00:00,  2.41s/it]
-Epoch 02 | Train Loss: 0.530, Acc: 74.60% | Val Loss: 0.533, Acc: 73.44%
-improved
-Training: 100%|██████████| 155/155 [3:06:06<00:00, 72.04s/it]   
-Evaluating: 100%|██████████| 64/64 [02:35<00:00,  2.43s/it]
-Epoch 03 | Train Loss: 0.481, Acc: 77.35% | Val Loss: 0.500, Acc: 73.44%
-improved
-Training: 100%|██████████| 155/155 [06:58<00:00,  2.70s/it]
-Evaluating: 100%|██████████| 64/64 [02:37<00:00,  2.46s/it]
-Epoch 04 | Train Loss: 0.456, Acc: 77.51% | Val Loss: 0.485, Acc: 73.83%
-improved
-Training: 100%|██████████| 155/155 [06:27<00:00,  2.50s/it]
-Evaluating: 100%|██████████| 64/64 [02:28<00:00,  2.33s/it]
-Epoch 05 | Train Loss: 0.461, Acc: 77.99% | Val Loss: 0.466, Acc: 76.56%
-improved
-Training: 100%|██████████| 155/155 [06:26<00:00,  2.49s/it]
-Evaluating: 100%|██████████| 64/64 [02:31<00:00,  2.37s/it]
-Epoch 06 | Train Loss: 0.431, Acc: 78.32% | Val Loss: 0.450, Acc: 76.56%
-improved
-Training: 100%|██████████| 155/155 [1:03:23<00:00, 24.54s/it] 
-Evaluating: 100%|██████████| 64/64 [1:17:26<00:00, 72.61s/it]   
-Epoch 07 | Train Loss: 0.450, Acc: 77.99% | Val Loss: 0.455, Acc: 75.39%
-not improved
-Training: 100%|██████████| 155/155 [06:25<00:00,  2.49s/it]
-Evaluating: 100%|██████████| 64/64 [02:32<00:00,  2.38s/it]
-Epoch 08 | Train Loss: 0.422, Acc: 79.45% | Val Loss: 0.490, Acc: 76.17%
-not improved
-Training: 100%|██████████| 155/155 [06:28<00:00,  2.51s/it]
-Evaluating: 100%|██████████| 64/64 [02:30<00:00,  2.35s/it]
-Epoch 09 | Train Loss: 0.430, Acc: 78.32% | Val Loss: 0.437, Acc: 80.86%
-improved
-Training: 100%|██████████| 155/155 [06:25<00:00,  2.49s/it]
-Evaluating: 100%|██████████| 64/64 [02:32<00:00,  2.39s/it]
-Epoch 10 | Train Loss: 0.403, Acc: 81.23% | Val Loss: 0.422, Acc: 79.69%
-improved
-Training: 100%|██████████| 155/155 [06:29<00:00,  2.51s/it]
-Evaluating: 100%|██████████| 64/64 [02:44<00:00,  2.57s/it]
-Epoch 11 | Train Loss: 0.391, Acc: 82.52% | Val Loss: 0.481, Acc: 74.22%
-not improved
-Training: 100%|██████████| 155/155 [06:32<00:00,  2.53s/it]
-Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.39s/it]
-Epoch 12 | Train Loss: 0.402, Acc: 80.58% | Val Loss: 0.414, Acc: 84.38%
-improved
-Training: 100%|██████████| 155/155 [06:59<00:00,  2.71s/it]
-Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.39s/it]
-Epoch 13 | Train Loss: 0.393, Acc: 80.91% | Val Loss: 0.415, Acc: 83.98%
-not improved
-Training: 100%|██████████| 155/155 [06:28<00:00,  2.50s/it]
-Evaluating: 100%|██████████| 64/64 [02:35<00:00,  2.43s/it]
-Epoch 14 | Train Loss: 0.417, Acc: 80.58% | Val Loss: 0.464, Acc: 76.95%
-not improved
-Training: 100%|██████████| 155/155 [06:56<00:00,  2.69s/it]
-Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.40s/it]
-Epoch 15 | Train Loss: 0.389, Acc: 82.04% | Val Loss: 0.524, Acc: 76.95%
-not improved
-Training: 100%|██████████| 155/155 [06:38<00:00,  2.57s/it]
-Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.39s/it]
-Epoch 16 | Train Loss: 0.361, Acc: 84.14% | Val Loss: 0.543, Acc: 74.22%
-not improved
+
+
 Training: 100%|██████████| 155/155 [06:40<00:00,  2.58s/it]
 Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.40s/it]
 Epoch 17 | Train Loss: 0.403, Acc: 80.42% | Val Loss: 0.445, Acc: 81.25%
-not improved
-Early stopping triggered!
+```
+
+### Test Result
+
+```
+===== Test Metrics =====
+Avg Loss: 0.3646
+Accuracy:  0.8621
+F1 Score:  0.8095
+Precision: 0.8293
+Recall:    0.7907
 ```
