@@ -20,9 +20,9 @@ The dataset consists of badminton rally sequences extracted from YouTube videos.
 Each sequence contains **30 consecutive frames**, resized to **224×224** (ImageNet Standard).
 
 The dataset is split as follows:
-- **Train**: 618 sequences
-- **Validation**: 256 sequences
-- **Test**: 116 sequences
+- **Train**: 618 sequences (5 videos)
+- **Validation**: 256 sequences (2 videos)
+- **Test**: 116 sequences (1 video)
 
 ---
 
