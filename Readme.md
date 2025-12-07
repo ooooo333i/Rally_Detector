@@ -4,13 +4,13 @@
 ## Setup
 
 1. Clone this repository.
-2. Create a new folder 'Data' and download datasets. [Dataset](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+2. Create a new folder 'Data' and download datasets. [Dataset]
 3. Run 'main.ipynb'.
 
 
 ## DataSet
 
-Download here.[Dataset-(GoogleDrive)](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+Download here.[Dataset-(GoogleDrive)]
 
 (it might take much time.)
 
@@ -201,7 +201,6 @@ This can lead to unstable convergence, higher variance, and sensitivity to hyper
 
 - The validation set has a different class distribution compared to the test set.
 This difference causes higher validation loss while the test loss remains low, making validation metrics less reliable for early stopping or hyperparameter tuning.
-
 
 - Train 
 ```
