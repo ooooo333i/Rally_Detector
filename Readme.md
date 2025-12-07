@@ -202,7 +202,6 @@ This can lead to unstable convergence, higher variance, and sensitivity to hyper
 - The validation set has a different class distribution compared to the test set.
 This difference causes higher validation loss while the test loss remains low, making validation metrics less reliable for early stopping or hyperparameter tuning.
 
-
 - Train 
 ```
 ===== TRAIN label distribution =====
