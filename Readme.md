@@ -17,7 +17,7 @@ Download here.[Dataset-(GoogleDrive)](https://drive.google.com/drive/folders/19a
 ---
 
 The dataset consists of badminton rally sequences extracted from YouTube videos.
-Each sequence contains **30 consecutive frames**, resized to **224×224**.
+Each sequence contains **30 consecutive frames**, resized to **224×224** (ImageNet Standard).
 
 The dataset is split as follows:
 - **Train**: 618 sequences
