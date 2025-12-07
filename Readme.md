@@ -177,7 +177,7 @@ Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.40s/it]
 Epoch 17 | Train Loss: 0.403, Acc: 80.42% | Val Loss: 0.445, Acc: 81.25%
 ```
 
-![image](/output.png)
+![image](/pngs/output.png)
 
 ### Test Result
 
