@@ -1,6 +1,105 @@
 # Artificial-Intelligence-Fall-2025-AnSeungGi
 
-## RES_LSTM Model Summary
+
+## Setup
+
+1. Clone this repository.
+2. Create a new folder 'Data' and download datasets. [Dataset](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+3. Run 'main.ipynb'.
+
+
+## DataSet
+
+Download here.[Dataset-(GoogleDrive)](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+
+(it might take much time.)
+
+---
+
+The dataset consists of badminton rally sequences extracted from YouTube videos.
+Each sequence contains **30 consecutive frames**, resized to **224×224** (ImageNet Standard).
+
+The dataset is split as follows:
+- **Train**: 618 sequences
+- **Validation**: 256 sequences
+- **Test**: 116 sequences
+
+---
+
+### 🔧 Data Preprocessing - role of 'collecting_data.py'
+
+1. Download YouTube videos using **pytubefix**  
+2. Extract frames every *interval seconds*  
+3. Resize to **224×224**  
+4. Group into sequences of **30 frames**
+5. Manually label using 'labeling.py'
+
+### structure
+
+```
+Data
+│
+├── train
+│     │
+│     ├── sequences
+│     │       ├── seq_00001
+│     │       │       ├── 00001.jpg
+│     │       │       ├── 00002.jpg
+│     │       │       └── ...
+│     │       ├── seq_00002
+│     │       │       └── ...
+│     │       └── ...
+│     │
+│     └── train.csv
+│
+├── validation
+│     │
+│     ├── sequences
+│     │       ├── seq_00001
+│     │       │       ├── 00001.jpg
+│     │       │       └── ...
+│     │       └── ...
+│     │
+│     └── validation.csv
+│
+└── test
+      │
+      ├── sequences
+      │       ├── seq_00001
+      │       │       ├── 00001.jpg
+      │       │       └── ...
+      │       └── ...
+      │
+      └── test.csv
+
+```
+
+## 🧠 Model: RESNET + LSTM Hybrid
+
+This model consists of two major parts:
+
+---
+
+### **1. CNN Feature Extractor (ResNet18)**
+
+- Pretrained on ImageNet  
+- Outputs a **512-dimensional feature** for each frame  
+- Frozen backbone to prevent overfitting and reduce compute
+
+---
+
+### **2. LSTM Temporal Model**
+
+- 2-layer LSTM  
+- Hidden size = 128  
+- Mean pooling across the 30-frame sequence  
+- Fully connected head for binary classification
+
+---
+
+### RES_LSTM Model Summary - (tsummary)
+
+Input Size (1, 30, 3, 244, 244)
 
 | Layer Type         | Name / (Depth-Idx)          | Output Shape       | Param #    |
 |-------------------|-----------------------------|--------------------|------------|
@@ -26,18 +125,139 @@
 | Dropout           | 2-12                        | [1,64]             | 0          |
 | Linear            | 2-13                        | [1,1]              | 65         |
 
-### **Total Parameters**
-| Type                | Count        |
-|---------------------|--------------|
-| Total params        | **11,645,633** |
-| Trainable params    | **469,121**   |
-| Frozen params       | **11,176,512** |
-| Mult-Adds           | **54.42 GB** |
+---
 
-### **Memory Usage**
-| Category                   | Size (MB) |
-|---------------------------|-----------|
-| Input size                | 18.06     |
-| Forward/backward pass     | 1192.21   |
-| Params size               | 46.58     |
-| **Estimated Total Size**  | **1256.86 MB** |
+
+## 🏋️ Training Process
+
+### Training Settings
+
+- **Loss**: BCEWithLogitsLoss
+- **Optimizer**: Adam (lr = 1e-4)
+- **Batch size**: 4
+- **Epochs**: 20
+- **Eearly Stopping**
+
+### Data Augmentation - not used
+
+(After applying data augmentation, it shows that the performance get lower)
+
+- Random horizontal flip
+- Random rotation
+- Color jitter
+
+### Optimized Hyper Parameter
+
+After trying various hyperparameters, this one performed the best.
+
+- Batchsize : 4
+- Learning rate : 1e-4
+- LSTM Hidden size : 128
+- LSTM Number of layers : 2
+- Dropout probability : 0.3
+
+**Only this case can trigger the early stopping.**
+
+---
+
+### Train Result 
+
+The average time of per iteration is around 2.5 sec.
+
+
+```
+Training: 100%|██████████| 155/155 [06:39<00:00,  2.58s/it]
+Evaluating: 100%|██████████| 64/64 [02:36<00:00,  2.45s/it]
+Epoch 01 | Train Loss: 0.625, Acc: 68.28% | Val Loss: 0.597, Acc: 58.98%
+
+~~~
+
+Training: 100%|██████████| 155/155 [06:40<00:00,  2.58s/it]
+Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.40s/it]
+Epoch 17 | Train Loss: 0.403, Acc: 80.42% | Val Loss: 0.445, Acc: 81.25%
+```
+
+![image](/output.png)
+
+### Test Result
+
+```
+===== Test Metrics =====
+Avg Loss: 0.3646
+Accuracy:  0.8621
+F1 Score:  0.8095
+Precision: 0.8293
+Recall:    0.7907
+```
+
+**The reason the validation loss is high while the test loss remains low is that the validation set does not have a similar class distribution to the test set.**
+
+## Limitaions
+
+### Limited Dataset Size / Imbalanced Data
+
+- The total number of labeled sequences (618 training samples) is relatively small for a deep-learning model combining CNN and LSTM.
+This can lead to unstable convergence, higher variance, and sensitivity to hyperparameter choices.
+
+- The validation set has a different class distribution compared to the test set.
+This difference causes higher validation loss while the test loss remains low, making validation metrics less reliable for early stopping or hyperparameter tuning.
+
+
+- Train 
+```
+===== TRAIN label distribution =====
+label
+0    425
+1    193
+Name: count, dtype: int64
+
+===== Percentage (%) =====
+label
+0    68.77
+1    31.23
+Name: proportion, dtype: float64
+
+Total samples: 618
+```
+- Validation
+```
+===== VALIDATION label distribution =====
+label
+0    151
+1    105
+Name: count, dtype: int64
+
+===== Percentage (%) =====
+label
+0    58.98
+1    41.02
+Name: proportion, dtype: float64
+
+Total samples: 256
+```
+
+- Test
+```
+===== TEST label distribution =====
+label
+0    73
+1    43
+Name: count, dtype: int64
+
+===== Percentage (%) =====
+label
+0    62.93
+1    37.07
+Name: proportion, dtype: float64
+
+Total samples: 116
+```
+
+## 🚀 Future Improvements
+
+**Several enhancements can be made in future work:**
+
+- Collect a larger and more diverse dataset, including not only high-quality match broadcasts but also personal handheld or amateur videos, so the model can generalize to real-world usage.
+- Reduce model computation to enable real-time tracking, such as by using a lighter or partially-trainable CNN backbone (e.g., MobileNet, EfficientNet) or replacing LSTM with a faster temporal model.
+- Increase data variation (different cameras, resolutions, lighting, and environments) to make the system robust enough for everyday user-generated footage.
+- Eventually extend the model to static, unedited match recordings so that it can detect rally segments automatically and count points in real time without manual intervention.
