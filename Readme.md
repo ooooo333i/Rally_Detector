@@ -1,105 +1,46 @@
-# Rally Detector
+# 🏸 Rally Detector
 
+**Detecting rally segments in badminton videos with a ResNet18 + LSTM model.**
 
-## Setup
+Given a 30-frame clip from a match video, the model classifies whether it is **rally** or **non-rally**.
+Since a point is scored exactly when a rally ends, detecting rally boundaries is the first step toward an **automatic, real-time scoreboard** — counting points without manual input.
 
-1. Clone this repository.
-2. Create a new folder 'Data' and download datasets. [Dataset](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
-3. Run 'main.ipynb'.
+> Individual project · Artificial Intelligence course (Fall 2025, Sejong University)
 
+| Accuracy | F1 Score | Precision | Recall |
+|:---:|:---:|:---:|:---:|
+| **86.2%** | **0.810** | 0.829 | 0.791 |
 
-## DataSet
+<sub>Test set: 116 sequences from 1 unseen video</sub>
 
-Download here.[Dataset-(GoogleDrive)](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link)
+**What I did**
+- Built the dataset from scratch: YouTube download → frame extraction → 30-frame sequencing → manual labeling tool (`labeling.py`)
+- Designed a CNN + LSTM hybrid for temporal classification and tuned hyperparameters
+- Analyzed class imbalance and train/val/test distribution mismatch
 
-(it might take much time.)
-
----
-
-The dataset consists of badminton rally sequences extracted from YouTube videos.
-Each sequence contains **30 consecutive frames**, resized to **224×224** (ImageNet Standard).
-
-The dataset is split as follows:
-- **Train**: 618 sequences (5 videos)
-- **Validation**: 256 sequences (2 videos)
-- **Test**: 116 sequences (1 video)
+**Tech Stack**: Python, PyTorch, torchvision (ResNet18), OpenCV, pytubefix
 
 ---
 
-### 🔧 Data Preprocessing - role of 'collecting_data.py'
-
-1. Download YouTube videos using **pytubefix**  
-2. Extract frames every *interval seconds*  
-3. Resize to **224×224**  
-4. Group into sequences of **30 frames**
-5. Manually label using 'labeling.py'
-
-### structure
-
-```
-Data
-│
-├── train
-│     │
-│     ├── sequences
-│     │       ├── seq_00001
-│     │       │       ├── 00001.jpg
-│     │       │       ├── 00002.jpg
-│     │       │       └── ...
-│     │       ├── seq_00002
-│     │       │       └── ...
-│     │       └── ...
-│     │
-│     └── train.csv
-│
-├── validation
-│     │
-│     ├── sequences
-│     │       ├── seq_00001
-│     │       │       ├── 00001.jpg
-│     │       │       └── ...
-│     │       └── ...
-│     │
-│     └── validation.csv
-│
-└── test
-      │
-      ├── sequences
-      │       ├── seq_00001
-      │       │       ├── 00001.jpg
-      │       │       └── ...
-      │       └── ...
-      │
-      └── test.csv
-
-```
-
-## 🧠 Model: RESNET + LSTM Hybrid
+## 🧠 Model: ResNet + LSTM Hybrid
 
 This model consists of two major parts:
 
----
+### 1. CNN Feature Extractor (ResNet18)
 
-### **1. CNN Feature Extractor (ResNet18)**
-
-- Pretrained on ImageNet  
-- Outputs a **512-dimensional feature** for each frame  
+- Pretrained on ImageNet
+- Outputs a **512-dimensional feature** for each frame
 - Frozen backbone to prevent overfitting and reduce compute
 
----
+### 2. LSTM Temporal Model
 
-### **2. LSTM Temporal Model**
-
-- 2-layer LSTM  
-- Hidden size = 128  
-- Mean pooling across the 30-frame sequence  
+- 2-layer LSTM
+- Hidden size = 128
+- Mean pooling across the 30-frame sequence
 - Fully connected head for binary classification
 
----
-
-### RES_LSTM Model Summary - (tsummary)
-
-Input Size (1, 30, 3, 244, 244)
+<details>
+<summary>RES_LSTM Model Summary (torchinfo) — Input Size (1, 30, 3, 224, 224)</summary>
 
 | Layer Type         | Name / (Depth-Idx)          | Output Shape       | Param #    |
 |-------------------|-----------------------------|--------------------|------------|
@@ -125,61 +66,89 @@ Input Size (1, 30, 3, 244, 244)
 | Dropout           | 2-12                        | [1,64]             | 0          |
 | Linear            | 2-13                        | [1,1]              | 65         |
 
+</details>
+
 ---
 
+## 📦 Dataset
 
-## 🏋️ Training Process
+The dataset consists of badminton rally sequences extracted from YouTube videos.
+Each sequence contains **30 consecutive frames**, resized to **224×224** (ImageNet standard).
 
-### Training Settings
+| Split | Sequences | Videos | Non-rally (0) | Rally (1) |
+|---|---:|---:|---:|---:|
+| Train | 618 | 5 | 425 (68.8%) | 193 (31.2%) |
+| Validation | 256 | 2 | 151 (59.0%) | 105 (41.0%) |
+| Test | 116 | 1 | 73 (62.9%) | 43 (37.1%) |
+
+### Data Preprocessing — `collecting_data.py`
+
+1. Download YouTube videos using **pytubefix**
+2. Extract frames every *interval seconds*
+3. Resize to **224×224**
+4. Group into sequences of **30 frames**
+5. Manually label using `labeling.py` (0 = non-rally, 1 = rally)
+
+<details>
+<summary>Directory structure</summary>
+
+```
+Data
+├── train
+│   ├── sequences
+│   │   ├── seq_00001
+│   │   │   ├── 00001.jpg
+│   │   │   ├── 00002.jpg
+│   │   │   └── ...
+│   │   └── ...
+│   └── train.csv
+├── validation
+│   ├── sequences/...
+│   └── validation.csv
+└── test
+    ├── sequences/...
+    └── test.csv
+```
+
+</details>
+
+---
+
+## 🏋️ Training
+
+### Settings
 
 - **Loss**: BCEWithLogitsLoss
 - **Optimizer**: Adam (lr = 1e-4)
 - **Batch size**: 4
 - **Epochs**: 20
-- **Eearly Stopping**
+- **Early stopping**
 
-### Data Augmentation - not used
-
-(After applying data augmentation, it shows that the performance get lower)
-
-- Random horizontal flip
-- Random rotation
-- Color jitter
-
-### Optimized Hyper Parameter
+### Optimized Hyperparameters
 
 After trying various hyperparameters, this one performed the best.
 
-- Batchsize : 4
-- Learning rate : 1e-4
-- LSTM Hidden size : 128
-- LSTM Number of layers : 2
-- Dropout probability : 0.3
+| Batch size | Learning rate | LSTM hidden size | LSTM layers | Dropout |
+|:---:|:---:|:---:|:---:|:---:|
+| 4 | 1e-4 | 128 | 2 | 0.3 |
 
-**Only this case can trigger the early stopping.**
+Only this configuration triggered early stopping (i.e., converged stably).
 
----
+### Data Augmentation — not used
 
-### Train Result 
+Random horizontal flip, random rotation and color jitter were tested, but they **lowered** performance, so the final model is trained without augmentation.
 
-The average time of per iteration is around 2.5 sec.
+### Result
 
+The average time per iteration is around 2.5 sec.
 
 ```
-Training: 100%|██████████| 155/155 [06:39<00:00,  2.58s/it]
-Evaluating: 100%|██████████| 64/64 [02:36<00:00,  2.45s/it]
 Epoch 01 | Train Loss: 0.625, Acc: 68.28% | Val Loss: 0.597, Acc: 58.98%
-
-~~~
-
-Training: 100%|██████████| 155/155 [06:40<00:00,  2.58s/it]
-Evaluating: 100%|██████████| 64/64 [02:33<00:00,  2.40s/it]
+...
 Epoch 17 | Train Loss: 0.403, Acc: 80.42% | Val Loss: 0.445, Acc: 81.25%
 ```
 
-![image](/pngs/output.png)
-
-### Test Result
+![training curve](pngs/output.png)
 
 ```
 ===== Test Metrics =====
@@ -190,73 +159,35 @@ Precision: 0.8293
 Recall:    0.7907
 ```
 
-**The reason the validation loss is high while the test loss remains low is that the validation set does not have a similar class distribution to the test set.**
+Validation loss stays higher than test loss. This is because the validation set does not have a similar class distribution to the test set, and the test set is small (116 sequences from a single video) — so test metrics should be read with that in mind.
 
-## Limitaions
+---
 
-### Limited Dataset Size / Imbalanced Data
+## ⚠️ Limitations
 
-- The total number of labeled sequences (618 training samples) is relatively small for a deep-learning model combining CNN and LSTM.
+### Limited Dataset Size
+
+The total number of labeled sequences (618 training samples) is relatively small for a deep-learning model combining CNN and LSTM.
 This can lead to unstable convergence, higher variance, and sensitivity to hyperparameter choices.
 
-- The validation set has a different class distribution compared to the test set.
-This difference causes higher validation loss while the test loss remains low, making validation metrics less reliable for early stopping or hyperparameter tuning.
+### Imbalanced / Mismatched Distribution
 
-- Train 
-```
-===== TRAIN label distribution =====
-label
-0    425
-1    193
-Name: count, dtype: int64
+The validation set has a different class distribution compared to the test set (see the [Dataset](#-dataset) table).
+This makes validation metrics less reliable for early stopping or hyperparameter tuning.
 
-===== Percentage (%) =====
-label
-0    68.77
-1    31.23
-Name: proportion, dtype: float64
-
-Total samples: 618
-```
-- Validation
-```
-===== VALIDATION label distribution =====
-label
-0    151
-1    105
-Name: count, dtype: int64
-
-===== Percentage (%) =====
-label
-0    58.98
-1    41.02
-Name: proportion, dtype: float64
-
-Total samples: 256
-```
-
-- Test
-```
-===== TEST label distribution =====
-label
-0    73
-1    43
-Name: count, dtype: int64
-
-===== Percentage (%) =====
-label
-0    62.93
-1    37.07
-Name: proportion, dtype: float64
-
-Total samples: 116
-```
+---
 
 ## 🚀 Future Improvements
 
-**Several enhancements can be made in future work:**
-
 - Collect a larger and more diverse dataset, including not only high-quality match broadcasts but also personal handheld or amateur videos, so the model can generalize to real-world usage.
-- Reduce model computation to enable real-time tracking, such as by using a lighter or partially-trainable CNN backbone (e.g., MobileNet, EfficientNet) or replacing LSTM with a faster temporal model.
+- Reduce model computation to enable real-time inference, such as by using a lighter or partially-trainable CNN backbone (e.g., MobileNet, EfficientNet) or replacing the LSTM with a faster temporal model.
 - Increase data variation (different cameras, resolutions, lighting, and environments) to make the system robust enough for everyday user-generated footage.
 - Eventually extend the model to static, unedited match recordings so that it can detect rally segments automatically and count points in real time without manual intervention.
+
+---
+
+## ⚙️ Setup
+
+1. Clone this repository.
+2. Create a new folder `Data` and download the dataset: [Dataset (Google Drive)](https://drive.google.com/drive/folders/19a5XDU64GR2ml62koi11TIn2tR8SgR4_?usp=drive_link) *(it might take a while)*
+3. Run `main.ipynb`.
